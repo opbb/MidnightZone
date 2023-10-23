@@ -5,23 +5,24 @@ var score
 
 func _ready():
 	randomize()
+	new_game()
 
 
 func game_over():
 	$ScoreTimer.stop()
-	$HUD.show_game_over()
+	$UI.show_game_over()
 
 
 func new_game():
 	score = 0
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
-	$HUD.update_score(score)
-	$HUD.show_message("Get Ready")
+	$UI.update_score(score)
+	$UI.show_message("Get Ready")
 
 func _on_ScoreTimer_timeout():
 	score += 1
-	$HUD.update_score(score)
+	$UI.update_score(score)
 
 
 func _on_StartTimer_timeout():
