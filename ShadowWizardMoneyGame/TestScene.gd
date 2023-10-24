@@ -18,7 +18,7 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$UI.update_score(score)
-	$UI.show_message("Get Ready")
+	$UI.show_message("Get Ready to Rumble!!!")
 
 func _on_ScoreTimer_timeout():
 	score += 1
