@@ -1,8 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TestScene.gd" type="Script" id=3]
+[ext_resource path="res://Wall.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 430, 5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 5, 427.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 5, 430 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 430, 5 )
 
 [node name="Node" type="Node"]
 script = ExtResource( 3 )
@@ -33,5 +46,60 @@ wait_time = 2.0
 one_shot = true
 
 [node name="UI" parent="." instance=ExtResource( 2 )]
+
+[node name="Walls" type="Node2D" parent="."]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Top Wall" type="StaticBody2D" parent="Walls"]
+script = ExtResource( 4 )
+
+[node name="Line2D" type="Line2D" parent="Walls/Top Wall"]
+points = PoolVector2Array( 0, 0, 850, 0 )
+default_color = Color( 0.468747, 0.113545, 0.648438, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top Wall"]
+position = Vector2( 425, 0 )
+shape = SubResource( 1 )
+
+[node name="Left Wall" type="StaticBody2D" parent="Walls"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Line2D" type="Line2D" parent="Walls/Left Wall"]
+points = PoolVector2Array( 0, 0, 0, 850 )
+default_color = Color( 0.468747, 0.113545, 0.648438, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left Wall"]
+position = Vector2( 0, 427.5 )
+shape = SubResource( 2 )
+
+[node name="Right Wall" type="StaticBody2D" parent="Walls"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Line2D" type="Line2D" parent="Walls/Right Wall"]
+points = PoolVector2Array( 850, 0, 850, 850 )
+default_color = Color( 0.468747, 0.113545, 0.648438, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right Wall"]
+position = Vector2( 850, 425 )
+shape = SubResource( 3 )
+
+[node name="Bottom Wall" type="StaticBody2D" parent="Walls"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Line2D" type="Line2D" parent="Walls/Bottom Wall"]
+points = PoolVector2Array( 0, 850, 850, 850 )
+default_color = Color( 0.468747, 0.113545, 0.648438, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom Wall"]
+position = Vector2( 425, 850 )
+shape = SubResource( 4 )
 
 [connection signal="start_game" from="UI" to="." method="new_game"]

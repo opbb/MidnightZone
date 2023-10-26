@@ -14,6 +14,11 @@ config/name="ShadowWizardMoneyGame"
 run/main_scene="res://TestScene.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=850
+window/size/height=850
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
