@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Light.gd" type="Script" id=1]
+[ext_resource path="res://art_assets/sprites/Lights/circle-light.png" type="Texture" id=2]
+[ext_resource path="res://Materials/backbuffercopy_mask_mat.tres" type="Material" id=3]
+
+[node name="Light" type="Node2D"]
+light_mask = 0
+script = ExtResource( 1 )
+
+[node name="VisibleLight2D" type="Light2D" parent="."]
+texture = ExtResource( 2 )
+shadow_enabled = true
+shadow_item_cull_mask = 193
+
+[node name="ShadowMaskLight2D" type="Light2D" parent="."]
+light_mask = 0
+texture = ExtResource( 2 )
+texture_scale = 1.05
+mode = 3
+range_item_cull_mask = 256
+shadow_enabled = true
+shadow_item_cull_mask = 320
+
+[node name="ShadowMaskMaskLight2D" type="Light2D" parent="."]
+light_mask = 0
+texture = ExtResource( 2 )
+texture_scale = 1.05
+mode = 3
+range_item_cull_mask = 512
+shadow_enabled = true
+shadow_item_cull_mask = 640
+
+[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
+light_mask = 0
+copy_mode = 2
+
+[node name="ShadowSprite" type="Sprite" parent="BackBufferCopy"]
+modulate = Color( 0.203922, 0.0431373, 0.380392, 1 )
+light_mask = 256
+texture = ExtResource( 2 )
+
+[node name="Masks" type="Node2D" parent="BackBufferCopy"]
+light_mask = 0
+material = ExtResource( 3 )
+
+[node name="ShadowMaskSprite" type="Sprite" parent="BackBufferCopy/Masks"]
+light_mask = 512
+use_parent_material = true
+scale = Vector2( 1.05, 1.05 )
+texture = ExtResource( 2 )
