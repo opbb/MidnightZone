@@ -30,9 +30,8 @@ animations = [ {
 radius = 51.0
 height = 0.0
 
-[node name="Mob" type="RigidBody2D"]
+[node name="Mob" type="Area2D"]
 collision_mask = 0
-gravity_scale = 0.0
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_group_": true
@@ -51,4 +50,5 @@ shape = SubResource( 2 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 
+[connection signal="body_entered" from="." to="." method="_on_Mob_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
