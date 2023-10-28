@@ -4,11 +4,7 @@
 [ext_resource path="res://UI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TestScene.gd" type="Script" id=3]
 [ext_resource path="res://Mob.tscn" type="PackedScene" id=4]
-
-[sub_resource type="Curve2D" id=1]
-_data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0, 0, 0, 0, 0, 1024, 600, 0, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 0 )
-}
+[ext_resource path="res://Scenes/Prefabs/MobSpawner.tscn" type="PackedScene" id=5]
 
 [node name="Node" type="Node"]
 script = ExtResource( 3 )
@@ -41,16 +37,9 @@ one_shot = true
 
 [node name="UI" parent="." instance=ExtResource( 2 )]
 
-[node name="MobTimer" type="Timer" parent="."]
-wait_time = 0.5
+[node name="MobSpawner" parent="." instance=ExtResource( 5 )]
 
-[node name="MobPath" type="Path2D" parent="."]
-curve = SubResource( 1 )
-
-[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
-
-[connection signal="hit" from="Player" to="." method="new_game"]
+[connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="start_game" from="UI" to="." method="new_game"]
-[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
