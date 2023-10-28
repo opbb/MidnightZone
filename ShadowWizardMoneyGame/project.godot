@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="ShadowWizardMoneyGame"
-run/main_scene="res://TestScene.tscn"
+run/main_scene="res://Scenes/Levels/LightTestScene.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -33,6 +33,7 @@ common/drop_mouse_on_gui_input_disabled=true
 2d_render/layer_8="PlayerOccluder"
 2d_render/layer_9="Shadows"
 2d_render/layer_10="ShadowMasks"
+2d_physics/layer_7="TerrainArea"
 2d_physics/layer_8="PlayerArea"
 2d_physics/layer_9="EnemyArea"
 2d_physics/layer_10="LightArea"
