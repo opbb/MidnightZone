@@ -32,6 +32,7 @@ height = 0.0
 
 [node name="Mob" type="RigidBody2D"]
 collision_mask = 0
+gravity_scale = 0.0
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_group_": true
