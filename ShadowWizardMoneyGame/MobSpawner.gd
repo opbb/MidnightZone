@@ -1,9 +1,7 @@
 extends Node
 
 export(PackedScene) var mob_scene
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+
 
 var listOfMobs = []
 

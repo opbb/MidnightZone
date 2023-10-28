@@ -9,7 +9,6 @@ func _ready():
 	var mob_types = $AnimatedSprite.frames.get_animation_names()
 	$AnimatedSprite.animation = mob_types[randi() % mob_types.size()]
 	var angle = randf() * 2 * PI
-	
 	velocity = Vector2(cos(angle), sin(angle)) * speed
 
 
@@ -21,7 +20,6 @@ func set_Properties(mob_spawn_location):
 
 	# Set the mob's position to a random location.
 	self.position = mob_spawn_location.position
-	print(position)
 
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
@@ -29,8 +27,5 @@ func set_Properties(mob_spawn_location):
 	velocity.rotated(direction)
 	
 func _physics_process(delta):
-	if velocity.x < 0:
-		self.position -= velocity * delta
-	else:
-		self.position += velocity * delta
+	self.position += velocity * delta
 	
