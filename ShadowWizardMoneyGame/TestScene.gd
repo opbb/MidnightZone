@@ -14,7 +14,7 @@ func game_over():
 	$MobSpawner.stop_mob_timer()
 	$UI.show_game_over()
 	
-
+	
 
 func new_game():
 	get_tree().call_group("mobs", "queue_free")
