@@ -1,35 +1,33 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://art_assets/sprites/AMOGUS.png" type="Texture" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/Prefabs/Light.tscn" type="PackedScene" id=3]
+[ext_resource path="res://art_assets/sprites/Lights/circle-light.png" type="Texture" id=4]
+[ext_resource path="res://Mob.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=6]
 
 [sub_resource type="OccluderPolygon2D" id=1]
-polygon = PoolVector2Array( -28, -30, -26, -32, 26, -32, 31, -27, 31, 26, 27, 31, -25, 32, -32, 26, -32, -27 )
+polygon = PoolVector2Array( -28, -30, -26, -32, 26, -32, 31, -27, 31, -1.50729, 31, 26, 27, 31, -25, 32, -32, 26, -32, -27 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 30, 30 )
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( 211, 25 )
 
 [node name="BKG" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 
 [node name="Light" parent="." instance=ExtResource( 3 )]
-position = Vector2( 59, 117 )
+position = Vector2( 167, 188 )
 scale = Vector2( 5, 5 )
-
-[node name="Player" type="Sprite" parent="."]
-position = Vector2( 156, 57 )
-texture = ExtResource( 2 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Player"]
-light_mask = 128
-occluder = SubResource( 1 )
-light_mask = 128
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color( 0.529412, 0.529412, 0.529412, 1 )
 
 [node name="Terrain" type="Sprite" parent="."]
-position = Vector2( -102, 94 )
+position = Vector2( -43, 107 )
 rotation = 0.938987
 scale = Vector2( 3, 1 )
 texture = ExtResource( 2 )
@@ -38,3 +36,26 @@ texture = ExtResource( 2 )
 light_mask = 64
 occluder = SubResource( 1 )
 light_mask = 64
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="Terrain"]
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Terrain/KinematicBody2D"]
+shape = SubResource( 3 )
+
+[node name="Light2D" type="Light2D" parent="."]
+visible = false
+position = Vector2( 57, 32 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 4 )
+color = Color( 0.870588, 0.576471, 0.164706, 1 )
+shadow_enabled = true
+shadow_color = Color( 0.0431373, 0.654902, 0.921569, 0.176471 )
+shadow_item_cull_mask = 193
+
+[node name="Mob" parent="." instance=ExtResource( 5 )]
+position = Vector2( 213, 501 )
+
+[node name="PlayerCharacter" parent="." instance=ExtResource( 6 )]
+position = Vector2( 145, 250 )
