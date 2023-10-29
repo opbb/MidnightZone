@@ -8,6 +8,8 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var wasInPlayerShadow = false
 
+var speed = 50
+var velocity = Vector2(0, 0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.playing = true
@@ -18,11 +20,22 @@ func _ready():
 	# Allos for values to be easily changed in the GUI
 	$ShadowCheckTimer.wait_time = shadowCheckInterval
 	$ConsumedTimer.wait_time = timeUntilConsumed
+	var angle = randf() * 2 * PI
+	velocity = Vector2(cos(angle), sin(angle)) * speed
 
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 	
+func set_Properties(mob_spawn_location):
+	var direction = mob_spawn_location.rotation + PI / 2
+	# Set the mob's position to a random location.
+	self.position = mob_spawn_location.position
+
+	# Add some randomness to the direction.
+	direction += rand_range(-PI / 4, PI / 4)
+	self.rotation = direction 
+	velocity.rotated(direction)
 
 	
 	
@@ -79,3 +92,7 @@ func _on_ConsumedTimer_timeout():
 func _on_consumed():
 	$ShadowCheckTimer.stop()
 	$AnimatedSprite.modulate = Color(0,0,0)
+	
+func _physics_process(delta):
+	self.position += velocity * delta
+	
