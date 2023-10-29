@@ -34,7 +34,7 @@ func set_Properties(mob_spawn_location):
 
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
-	self.rotation = direction 
+	$AnimatedSprite.rotation = direction 
 	velocity.rotated(direction)
 
 	
@@ -46,7 +46,7 @@ func _is_Mob_in_Player_Shadow():
 	var isInPlayerShadow = false
 	
 	for lightArea in overlappingAreas:
-		var hereToLight = lightArea.position - self.position
+		var hereToLight = lightArea.global_position - self.global_position
 		PlayerRaycast2D.cast_to = hereToLight
 		PlayerRaycast2D.force_raycast_update()
 		TerrainRaycast2D.cast_to = hereToLight
