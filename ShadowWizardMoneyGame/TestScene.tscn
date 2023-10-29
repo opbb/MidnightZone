@@ -246,15 +246,9 @@ tile_data = PoolIntArray( -1, 0, 196609, -65536, 0, 196609, -65535, 0, 196609, -
 
 [node name="MobSpawner" parent="." instance=ExtResource( 5 )]
 
-<<<<<<< HEAD
-[node name="FakeLightObject" parent="." instance=ExtResource( 7 )]
-position = Vector2( 408, 384 )
-scale = Vector2( -9034.63, -15008.9 )
-=======
 [node name="Light" parent="." instance=ExtResource( 7 )]
 position = Vector2( 542, 247 )
 scale = Vector2( 4, 4 )
->>>>>>> main
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

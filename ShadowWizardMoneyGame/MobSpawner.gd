@@ -22,7 +22,7 @@ func _on_MobTimer_timeout():
 	listOfMobs.append(mob)
 
 	# Get location of light
-	var light_location = get_node("../FakeLightObject")
+	var light_location = get_node("../Light")
 	
 	# Choose a random location on Path2D.
 	var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
