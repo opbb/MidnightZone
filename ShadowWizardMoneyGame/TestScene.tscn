@@ -6,7 +6,7 @@
 [ext_resource path="res://Mob.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Prefabs/MobSpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://art_assets/Tilesets/wood_tileset.png" type="Texture" id=6]
-[ext_resource path="res://FakeLightObject.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Prefabs/Light.tscn" type="PackedScene" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=13]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -246,9 +246,15 @@ tile_data = PoolIntArray( -1, 0, 196609, -65536, 0, 196609, -65535, 0, 196609, -
 
 [node name="MobSpawner" parent="." instance=ExtResource( 5 )]
 
+<<<<<<< HEAD
 [node name="FakeLightObject" parent="." instance=ExtResource( 7 )]
 position = Vector2( 408, 384 )
 scale = Vector2( -9034.63, -15008.9 )
+=======
+[node name="Light" parent="." instance=ExtResource( 7 )]
+position = Vector2( 542, 247 )
+scale = Vector2( 4, 4 )
+>>>>>>> main
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
