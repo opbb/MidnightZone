@@ -1,7 +1,12 @@
 extends Area2D
 
+export var shadowCheckInterval = .1
+export var timeUntilConsumed = 1
+
 onready var PlayerRaycast2D = $PlayerRayCast2D
 onready var TerrainRaycast2D = $TerrainRayCast2D
+onready var ConsumedTimer = $ConsumedTimer
+onready var wasInPlayerShadow = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -9,15 +14,16 @@ func _ready():
 	var mob_types = $AnimatedSprite.frames.get_animation_names()
 	$AnimatedSprite.animation = mob_types[randi() % mob_types.size()]
 	print(_is_Mob_in_Player_Shadow())
+	
+	# Allos for values to be easily changed in the GUI
+	$ShadowCheckTimer.wait_time = shadowCheckInterval
+	$ConsumedTimer.wait_time = timeUntilConsumed
 
 
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 	
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	print(_is_Mob_in_Player_Shadow())
 	
 	
 # Determine's whether this mob is in player shadow, returns boolean.
@@ -44,3 +50,32 @@ func _is_Mob_in_Player_Shadow():
 			isInPlayerShadow = true
 	
 	return isInPlayerShadow
+
+
+func _on_ShadowCheckTimer_timeout():
+	var isInPlayerShadow = _is_Mob_in_Player_Shadow()
+	if(isInPlayerShadow && !wasInPlayerShadow):
+		_on_enter_Player_Shadow()
+	elif (!isInPlayerShadow && wasInPlayerShadow):
+		_on_exit_Player_Shadow()
+
+func _on_enter_Player_Shadow():
+	wasInPlayerShadow = true
+	$AnimatedSprite.modulate = Color(255,217,25)
+	ConsumedTimer.start()
+
+func _on_exit_Player_Shadow():
+	wasInPlayerShadow = false
+	$AnimatedSprite.modulate = Color(0,38,230)
+	ConsumedTimer.stop()
+
+
+func _on_ConsumedTimer_timeout():
+	if (_is_Mob_in_Player_Shadow()):
+		_on_consumed()
+	else:
+		_on_exit_Player_Shadow()
+		
+func _on_consumed():
+	$ShadowCheckTimer.stop()
+	$AnimatedSprite.modulate = Color(0,0,0)

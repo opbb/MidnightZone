@@ -71,4 +71,13 @@ cast_to = Vector2( 0, 0 )
 collision_mask = 64
 collide_with_areas = true
 
+[node name="ShadowCheckTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="ConsumedTimer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="ShadowCheckTimer" to="." method="_on_ShadowCheckTimer_timeout"]
+[connection signal="timeout" from="ConsumedTimer" to="." method="_on_ConsumedTimer_timeout"]
