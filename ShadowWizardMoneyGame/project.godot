@@ -22,6 +22,7 @@ window/size/height=832
 [global]
 
 "2d render"=false
+mip=false
 
 [gui]
 
