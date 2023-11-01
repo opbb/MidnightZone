@@ -27,8 +27,8 @@ func _on_MobTimer_timeout():
 	# Choose a random location on Path2D.
 	var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
 	mob_spawn_location.offset = randi()
-	
-	mob.set_Properties(mob_spawn_location, light_location)
+	var will_rotate = randi() % 20 % 2 == 0
+	mob.set_Properties(mob_spawn_location, light_location, will_rotate)
 
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
