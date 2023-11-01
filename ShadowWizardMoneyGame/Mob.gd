@@ -2,14 +2,18 @@ extends Area2D
 
 export var shadowCheckInterval = .1
 export var timeUntilConsumed = 1
+export var timeForBounce = 1
 
 onready var PlayerRaycast2D = $PlayerRayCast2D
 onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
+onready var BounceTimer = $BounceTimer
 onready var wasInPlayerShadow = false
 
 var speed = 50
 var velocity = Vector2(0, 0)
+var bounce_speed = 200
+var bounce_direction = Vector2(0,0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.playing = true
@@ -19,6 +23,7 @@ func _ready():
 	# Allos for values to be easily changed in the GUI
 	$ShadowCheckTimer.wait_time = shadowCheckInterval
 	$ConsumedTimer.wait_time = timeUntilConsumed
+	$BounceTimer.wait_time = timeForBounce
 	var angle = randf() * 2 * PI
 	velocity = Vector2(cos(angle), sin(angle)) * speed
 
@@ -93,5 +98,32 @@ func _on_consumed():
 	$AnimatedSprite.modulate = Color(0,0,0)
 	
 func _physics_process(delta):
-	self.position += velocity * delta
-	
+	if (BounceTimer.is_stopped()):
+		self.position += velocity * delta
+	else:
+		self.position += bounce_direction * delta * BounceTimer.time_left * bounce_speed
+
+func enable_bounce_mob(collision_position):
+	print("bounce")
+	var direction = self.position - collision_position
+	direction = direction.normalized()
+	BounceTimer.start()
+	bounce_direction = direction
+
+func _on_Mob_body_entered(body):
+	if (body.get_name() == "Player"):
+		emit_signal("player-bounce")
+		self.enable_bounce_mob(body.position)
+	elif (body.get_name() == "LightBody"):
+		var overlappingArea = $LightCheckArea2D.get_overlapping_areas()[0]
+		var enemiesToBounce = overlappingArea.get_overlapping_areas()
+		print("Enemies")
+		print(enemiesToBounce)
+		var lightPosition = overlappingArea.global_position
+		for enemy in enemiesToBounce:
+			print(enemy.get_name())
+			if "Mob" in enemy.get_name():
+				print(enemy)
+				enemy.enable_bounce_mob(lightPosition)
+		
+
