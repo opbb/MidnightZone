@@ -9,9 +9,9 @@ onready var ConsumedTimer = $ConsumedTimer
 onready var wasInPlayerShadow = false
 
 var speed = 25
-var velocity = Vector2(0, 0)
-var light_mock = Vector2(0,0)
+var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.playing = true
@@ -21,8 +21,7 @@ func _ready():
 	# Allos for values to be easily changed in the GUI
 	$ShadowCheckTimer.wait_time = shadowCheckInterval
 	$ConsumedTimer.wait_time = timeUntilConsumed
-	var angle = randf() * 2 * PI
-	velocity = Vector2(cos(angle), sin(angle)) * speed
+	
 
 
 func _on_VisibilityNotifier2D_screen_exited():
@@ -30,7 +29,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 	
 func set_Properties(mob_spawn_location, light):
 	
-	light_mock = light.position
+	light_position = light.position
 	direction = mob_spawn_location.rotation + PI / 2
 	# Set the mob's position to a random location.
 	self.position = mob_spawn_location.position
@@ -38,8 +37,6 @@ func set_Properties(mob_spawn_location, light):
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
 	$AnimatedSprite.rotation = direction 
-	velocity.rotated(direction)
-	print("moving toward {}", light_mock)
 
 	
 	
@@ -98,6 +95,8 @@ func _on_consumed():
 	$AnimatedSprite.modulate = Color(0,0,0)
 	
 func _physics_process(delta):	
-	self.position = self.position.move_toward(light_mock, delta * speed)
+	var d = self.position.move_toward(light_position, delta * speed) - self.position
+	
+	self.position += d.rotated(deg2rad(45))
 	
 	
