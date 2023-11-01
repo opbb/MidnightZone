@@ -2,8 +2,11 @@ extends KinematicBody2D
 
 signal hit
 
-export var speed = 400 # How fast the player will move (pixels/sec).
+export var speed = 100 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
+onready var animationTree = $ChildAnimationTree
+onready var stateMachine = animationTree.get("parameters/playback")
+
 
 
 func _ready():
@@ -26,6 +29,8 @@ func _process(delta):
 		velocity = velocity.normalized() * speed
 	
 	move_and_slide(velocity)
+	
+	updateAnimationState(velocity)
 
 func start(pos):
 	position = pos
@@ -39,3 +44,10 @@ func _on_Player_body_entered(_body):
 	# Must be deferred as we can't change physics properties on a physics callback.
 	
 	
+
+
+func updateAnimationState(velocity: Vector2):
+	if (velocity != Vector2.ZERO):
+		stateMachine.travel("Walk")
+	else:
+		stateMachine.travel("Idle")
