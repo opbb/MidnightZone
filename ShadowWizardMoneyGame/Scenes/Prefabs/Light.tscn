@@ -65,6 +65,6 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LightBody"]
 shape = SubResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="LightCollisionArea" type="CollisionShape2D" parent="."]
 light_mask = 0
 shape = SubResource( 1 )

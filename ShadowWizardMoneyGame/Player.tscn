@@ -7,10 +7,10 @@
 extents = Vector2( 4.5, 1.5 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -12, -15, 6, -15, 6, 16, -12, 16 )
+polygon = PoolVector2Array( -8, 5, 4, 5, 4, 8, -8, 8 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 9, 15.5 )
+extents = Vector2( 6, 5 )
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -163,3 +163,6 @@ active = true
 parameters/playback = SubResource( 17 )
 parameters/Idle/blend_position = Vector2( 0, 0 )
 parameters/Walk/blend_position = Vector2( 0, 0 )
+
+[node name="PlayerBounceTimer" type="Timer" parent="."]
+one_shot = true

@@ -102,16 +102,15 @@ func _on_consumed():
 func _physics_process(delta):
 	if (BounceTimer.is_stopped()):
 		var new_pos = self.position.move_toward(light_position, delta * speed)
-    if move_at_angle_huh:
-      var d =  new_pos - self.position
-      self.position += d.rotated(deg2rad(45))
-    else:
-      self.position = new_pos
+		if move_at_angle_huh:
+			var d =  new_pos - self.position
+			self.position += d.rotated(deg2rad(45))
+		else:
+			self.position = new_pos
 	else:
 		self.position += bounce_direction * delta * BounceTimer.time_left * bounce_speed
 
 func enable_bounce_mob(collision_position):
-	print("bounce")
 	var direction = self.position - collision_position
 	direction = direction.normalized()
 	BounceTimer.start()
@@ -119,18 +118,14 @@ func enable_bounce_mob(collision_position):
 
 func _on_Mob_body_entered(body):
 	if (body.get_name() == "Player"):
-		emit_signal("player-bounce")
+		body.playerBounceDetected(self.position)
 		self.enable_bounce_mob(body.position)
 	elif (body.get_name() == "LightBody"):
-		var overlappingArea = $LightCheckArea2D.get_overlapping_areas()[0]
+		var overlappingArea = body.get_parent()
 		var enemiesToBounce = overlappingArea.get_overlapping_areas()
-		print("Enemies")
-		print(enemiesToBounce)
 		var lightPosition = overlappingArea.global_position
 		for enemy in enemiesToBounce:
-			print(enemy.get_name())
 			if "Mob" in enemy.get_name():
-				print(enemy)
 				enemy.enable_bounce_mob(lightPosition)
 		
 
