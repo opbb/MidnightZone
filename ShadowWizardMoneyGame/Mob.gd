@@ -8,9 +8,10 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var wasInPlayerShadow = false
 
-var speed = 50
+var speed = 25
 var velocity = Vector2(0, 0)
 var light_mock = Vector2(0,0)
+var direction = Vector2(0,0)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite.playing = true
@@ -30,7 +31,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 func set_Properties(mob_spawn_location, light):
 	
 	light_mock = light.position
-	var direction = mob_spawn_location.rotation + PI / 2
+	direction = mob_spawn_location.rotation + PI / 2
 	# Set the mob's position to a random location.
 	self.position = mob_spawn_location.position
 
@@ -38,6 +39,7 @@ func set_Properties(mob_spawn_location, light):
 	direction += rand_range(-PI / 4, PI / 4)
 	$AnimatedSprite.rotation = direction 
 	velocity.rotated(direction)
+	print("moving toward {}", light_mock)
 
 	
 	
@@ -95,9 +97,7 @@ func _on_consumed():
 	$ShadowCheckTimer.stop()
 	$AnimatedSprite.modulate = Color(0,0,0)
 	
-func _physics_process(delta):
-	var movement_direction = light_mock - self.position
-	var direction_length = sqrt(pow(movement_direction.x, 2) + pow(movement_direction.y, 2))
-	var movement_direction_normalized = movement_direction / direction_length
-	self.position += velocity * delta * movement_direction_normalized
+func _physics_process(delta):	
+	self.position = self.position.move_toward(light_mock, delta * speed)
+	
 	
