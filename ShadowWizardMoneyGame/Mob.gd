@@ -11,7 +11,7 @@ onready var wasInPlayerShadow = false
 var speed = 25
 var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
-var move_at_angle_ha = true
+var move_at_angle_huh = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,7 +29,7 @@ func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 	
 func set_Properties(mob_spawn_location, light, will_rotate):
-	self.move_at_angle_ha = will_rotate
+	self.move_at_angle_huh = will_rotate
 	light_position = light.position
 	direction = mob_spawn_location.rotation + PI / 2
 	# Set the mob's position to a random location.
@@ -97,7 +97,7 @@ func _on_consumed():
 	
 func _physics_process(delta):	
 	var new_pos = self.position.move_toward(light_position, delta * speed)
-	if move_at_angle_ha:
+	if move_at_angle_huh:
 		var d =  new_pos - self.position
 		self.position += d.rotated(deg2rad(45))
 	else:
