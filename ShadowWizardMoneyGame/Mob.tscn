@@ -44,7 +44,6 @@ __meta__ = {
 scale = Vector2( 0.75, 0.75 )
 frames = SubResource( 1 )
 animation = "walk"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -78,10 +77,10 @@ autostart = true
 [node name="ConsumedTimer" type="Timer" parent="."]
 one_shot = true
 
+
 [node name="BounceTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="." to="." method="_on_Mob_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="ShadowCheckTimer" to="." method="_on_ShadowCheckTimer_timeout"]
 [connection signal="timeout" from="ConsumedTimer" to="." method="_on_ConsumedTimer_timeout"]
