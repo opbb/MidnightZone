@@ -77,7 +77,6 @@ autostart = true
 [node name="ConsumedTimer" type="Timer" parent="."]
 one_shot = true
 
-[connection signal="body_entered" from="." to="." method="_on_Mob_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="ShadowCheckTimer" to="." method="_on_ShadowCheckTimer_timeout"]
 [connection signal="timeout" from="ConsumedTimer" to="." method="_on_ConsumedTimer_timeout"]
