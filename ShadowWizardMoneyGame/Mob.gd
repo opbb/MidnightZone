@@ -2,12 +2,16 @@ extends Area2D
 
 export var shadowCheckInterval = .1
 export var timeUntilConsumed = 1
+export var timeForBounce = 1
 
 onready var PlayerRaycast2D = $PlayerRayCast2D
 onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
+onready var BounceTimer = $BounceTimer
 onready var wasInPlayerShadow = false
 
+var bounce_speed = 200
+var bounce_direction = Vector2(0,0)
 var speed = 25
 var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
@@ -22,7 +26,7 @@ func _ready():
 	# Allos for values to be easily changed in the GUI
 	$ShadowCheckTimer.wait_time = shadowCheckInterval
 	$ConsumedTimer.wait_time = timeUntilConsumed
-	
+	$BounceTimer.wait_time = timeForBounce
 
 
 func _on_VisibilityNotifier2D_screen_exited():
@@ -95,12 +99,33 @@ func _on_consumed():
 	$ShadowCheckTimer.stop()
 	$AnimatedSprite.modulate = Color(0,0,0)
 	
-func _physics_process(delta):	
-	var new_pos = self.position.move_toward(light_position, delta * speed)
-	if move_at_angle_huh:
-		var d =  new_pos - self.position
-		self.position += d.rotated(deg2rad(45))
+func _physics_process(delta):
+	if (BounceTimer.is_stopped()):
+		var new_pos = self.position.move_toward(light_position, delta * speed)
+		if move_at_angle_huh:
+			var d =  new_pos - self.position
+			self.position += d.rotated(deg2rad(45))
+		else:
+			self.position = new_pos
 	else:
-		self.position = new_pos
-	
-	
+		self.position += bounce_direction * delta * BounceTimer.time_left * bounce_speed
+
+func enable_bounce_mob(collision_position):
+	var direction = self.position - collision_position
+	direction = direction.normalized()
+	BounceTimer.start()
+	bounce_direction = direction
+
+func _on_Mob_body_entered(body):
+	if (body.get_name() == "Player"):
+		body.playerBounceDetected(self.position)
+		self.enable_bounce_mob(body.position)
+	elif (body.get_name() == "LightBody"):
+		var overlappingArea = body.get_parent()
+		var enemiesToBounce = overlappingArea.get_overlapping_areas()
+		var lightPosition = overlappingArea.global_position
+		for enemy in enemiesToBounce:
+			if "Mob" in enemy.get_name():
+				enemy.enable_bounce_mob(lightPosition)
+		
+
