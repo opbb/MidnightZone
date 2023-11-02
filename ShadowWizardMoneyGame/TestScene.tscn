@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=2]
+[gd_scene load_steps=79 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/Prefabs/MobSpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://art_assets/Tilesets/wood_tileset_final.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Prefabs/Light.tscn" type="PackedScene" id=7]
+[ext_resource path="res://LightManager.tscn" type="PackedScene" id=8]
 
 [sub_resource type="TileSet" id=59]
 0/name = "wood_tileset_final.png 0"
@@ -663,9 +664,14 @@ tile_data = PoolIntArray( -1, 0, 327685, -65536, 0, 327685, -65535, 0, 327685, -
 
 [node name="MobSpawner" parent="." instance=ExtResource( 5 )]
 
-[node name="Light" parent="." instance=ExtResource( 7 )]
+[node name="LightManager" parent="." instance=ExtResource( 8 )]
+
+[node name="Light" parent="LightManager" instance=ExtResource( 7 )]
 position = Vector2( 542, 247 )
 scale = Vector2( 4, 4 )
+
+[node name="Light2" parent="LightManager" instance=ExtResource( 7 )]
+position = Vector2( 168, 600 )
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

@@ -32,12 +32,31 @@ func _ready():
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 	
-func set_Properties(mob_spawn_location, light, will_rotate):
+func find_min_distance_to_light(lights): 
+	var closest_num = self.position.distance_to(lights[0].position)
+	var closest_light = lights[0]
+
+	for i in range(1, lights.size()):
+		var delta = self.position.distance_to(lights[i].position)
+		if delta < closest_num:
+			closest_light = lights[i]
+			closest_num = delta
+	print("my position is ", self.position, "and my closest light point is ", closest_light.position)
+	print("with a diff of ", closest_num)
+	return closest_light
+
+func change_target():
+	pass
+		
+		
+func set_Properties(mob_spawn_location, lights, will_rotate):
+	self.position = mob_spawn_location.position
+	var closest_light = find_min_distance_to_light(lights)	
 	self.move_at_angle_huh = will_rotate
-	light_position = light.position
+	light_position = closest_light.position
 	direction = mob_spawn_location.rotation + PI / 2
 	# Set the mob's position to a random location.
-	self.position = mob_spawn_location.position
+	
 
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
