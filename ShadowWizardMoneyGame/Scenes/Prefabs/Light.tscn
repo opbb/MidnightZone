@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Light.gd" type="Script" id=1]
 [ext_resource path="res://art_assets/sprites/Lights/circle-light.png" type="Texture" id=2]
 [ext_resource path="res://Materials/backbuffercopy_mask_mat.tres" type="Material" id=3]
 [ext_resource path="res://art_assets/sprites/Shadow/shadow texture.png" type="Texture" id=4]
-[ext_resource path="res://Scenes/Prefabs/VisibleLight2D.gd" type="Script" id=5]
 [ext_resource path="res://Scenes/Prefabs/LightCenter.gd" type="Script" id=6]
 
 [sub_resource type="CircleShape2D" id=2]
@@ -27,7 +26,6 @@ texture = ExtResource( 2 )
 color = Color( 1, 0.984314, 0.556863, 1 )
 shadow_enabled = true
 shadow_item_cull_mask = 193
-script = ExtResource( 5 )
 
 [node name="ShadowMaskLight2D" type="Light2D" parent="."]
 light_mask = 0
@@ -66,12 +64,12 @@ use_parent_material = true
 scale = Vector2( 1.05, 1.05 )
 texture = ExtResource( 2 )
 
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+[node name="LightBody" type="KinematicBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightBody"]
 shape = SubResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="LightCollisionArea" type="CollisionShape2D" parent="."]
 light_mask = 0
 shape = SubResource( 1 )
 
