@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/Light.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Prefabs/Light.gd" type="Script" id=1]
 [ext_resource path="res://art_assets/sprites/Lights/circle-light.png" type="Texture" id=2]
 [ext_resource path="res://Materials/backbuffercopy_mask_mat.tres" type="Material" id=3]
 [ext_resource path="res://art_assets/sprites/Shadow/shadow texture.png" type="Texture" id=4]

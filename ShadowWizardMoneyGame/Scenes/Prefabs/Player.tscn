@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://art_assets/sprites/Child/child_run_sheet.png" type="Texture" id=1]
-[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Prefabs/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 4.5, 1.5 )
