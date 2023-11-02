@@ -122,6 +122,7 @@ func _on_Mob_body_entered(body):
 		self.enable_bounce_mob(body.position)
 	elif (body.get_name() == "LightBody"):
 		var overlappingArea = body.get_parent()
+		overlappingArea.onLightHit()
 		var enemiesToBounce = overlappingArea.get_overlapping_areas()
 		var lightPosition = overlappingArea.global_position
 		for enemy in enemiesToBounce:
