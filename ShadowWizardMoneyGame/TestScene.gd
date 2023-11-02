@@ -28,7 +28,6 @@ func _on_ScoreTimer_timeout():
 	score += 1
 	$UI.update_score(score)
 
-
 func _on_StartTimer_timeout():
 	$MobSpawner.start_mob_timer()
 	$ScoreTimer.start()

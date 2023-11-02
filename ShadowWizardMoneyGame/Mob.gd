@@ -8,8 +8,6 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var wasInPlayerShadow = false
 
-signal testChangeLevel
-
 var speed = 25
 var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
@@ -96,8 +94,6 @@ func _on_ConsumedTimer_timeout():
 func _on_consumed():
 	$ShadowCheckTimer.stop()
 	$AnimatedSprite.modulate = Color(0,0,0)
-	emit_signal("testChangeLevel")
-	
 	
 func _physics_process(delta):	
 	var new_pos = self.position.move_toward(light_position, delta * speed)
