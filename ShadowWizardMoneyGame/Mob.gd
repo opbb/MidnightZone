@@ -16,6 +16,8 @@ var speed = 25
 var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
 var move_at_angle_huh = true
+var target_light: Area2D
+var alive_lights = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,13 +49,27 @@ func find_min_distance_to_light(lights):
 
 func change_target():
 	pass
+	
+func _on_light_died(light):
+	alive_lights.erase(light)
+	if light == target_light:
+		target_light = find_min_distance_to_light(alive_lights)	
+		$AnimatedSprite.rotation = direction 
+		light_position = target_light.position
 		
+		
+
+func connect_light_signal_to_mob(lights):
+	for light in lights:
+		light.connect("light_died", self, "_on_light_died", light)
+	
 		
 func set_Properties(mob_spawn_location, lights, will_rotate):
+	alive_lights = lights
 	self.position = mob_spawn_location.position
-	var closest_light = find_min_distance_to_light(lights)	
+	target_light = find_min_distance_to_light(lights)	
 	self.move_at_angle_huh = will_rotate
-	light_position = closest_light.position
+	light_position = target_light.position
 	direction = mob_spawn_location.rotation + PI / 2
 	# Set the mob's position to a random location.
 	
