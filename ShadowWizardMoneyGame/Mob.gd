@@ -8,7 +8,7 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var wasInPlayerShadow = false
 
-var speed = 25
+var speed = 50
 var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
 var move_at_angle_huh = true

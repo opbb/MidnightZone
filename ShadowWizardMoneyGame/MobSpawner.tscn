@@ -18,6 +18,6 @@ curve = SubResource( 1 )
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 2.0
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
