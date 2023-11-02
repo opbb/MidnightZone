@@ -81,7 +81,6 @@ script = ExtResource( 6 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LightCenter"]
 shape = SubResource( 3 )
 
-[connection signal="area_entered" from="." to="." method="_on_Light_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_Light_body_entered"]
 [connection signal="area_entered" from="LightCenter" to="LightCenter" method="_on_LightCenter_area_entered"]
 [connection signal="light_hit" from="LightCenter" to="." method="_on_LightCenter_light_hit"]
