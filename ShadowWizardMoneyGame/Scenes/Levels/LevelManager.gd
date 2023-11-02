@@ -1,6 +1,16 @@
 extends Node
 
-func _ready():
-	pass # Replace with function body.
+export var next = ""
+const mainMenu = "MainMenu"
 
-func
+func toMainMenu():
+	toLevel(mainMenu)
+
+func restartLevel():
+	get_tree().reload_current_scene()
+
+func toNextLevel():
+	toLevel(next)
+
+func toLevel(levelName):
+	get_tree().change_scene("res://Scenes/Levels/" + str(levelName) + ".tscn")
