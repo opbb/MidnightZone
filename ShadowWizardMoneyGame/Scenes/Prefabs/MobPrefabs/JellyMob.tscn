@@ -91,6 +91,7 @@ start_node = "Idle-and-Float"
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
 [node name="JellyMob" type="Area2D"]
+z_index = 2
 collision_layer = 257
 collision_mask = 640
 script = ExtResource( 7 )
@@ -137,6 +138,13 @@ one_shot = true
 [node name="BounceTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="JiggleTimer" type="Timer" parent="."]
+wait_time = 0.07
+
+[node name="DeathTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="MobAnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 4 )
 anims/float_left = SubResource( 5 )
@@ -153,3 +161,5 @@ parameters/Idle-and-Float/blend_position = Vector2( 0.998681, -0.798286 )
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="ShadowCheckTimer" to="." method="_on_ShadowCheckTimer_timeout"]
 [connection signal="timeout" from="ConsumedTimer" to="." method="_on_ConsumedTimer_timeout"]
+[connection signal="timeout" from="JiggleTimer" to="." method="_on_JiggleTimer_timeout"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_DeathTimer_timeout"]
