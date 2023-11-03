@@ -9,6 +9,8 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var BounceTimer = $BounceTimer
 onready var wasInPlayerShadow = false
+onready var animationTree = $MobAnimationTree
+
 const jiggleOffset = Vector2(3, 0)
 
 var bounce_speed = 200
@@ -21,10 +23,6 @@ var is_dying = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite.playing = true
-	var mob_types = $AnimatedSprite.frames.get_animation_names()
-	$AnimatedSprite.animation = mob_types[randi() % mob_types.size()]
-	
 	# Allos for values to be easily changed in the GUI
 	$ShadowCheckTimer.wait_time = shadowCheckInterval
 	$ConsumedTimer.wait_time = timeUntilConsumed
@@ -36,14 +34,13 @@ func _on_VisibilityNotifier2D_screen_exited():
 	
 func set_Properties(mob_spawn_location, light, will_rotate):
 	self.move_at_angle_huh = will_rotate
-	light_position = light.position
+	light_position = light.global_position
 	direction = mob_spawn_location.rotation + PI / 2
 	# Set the mob's position to a random location.
 	self.position = mob_spawn_location.position
 
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
-	$AnimatedSprite.rotation = direction 
 
 	
 	
@@ -99,11 +96,13 @@ func _on_ConsumedTimer_timeout():
 		
 func _on_consumed():
 	$ShadowCheckTimer.stop()
-	$AnimatedSprite.modulate = Color(0.369,0.2,0.416,0.7)
+	$Sprite.modulate = Color(0.369,0.2,0.416,0.7)
 	is_dying = true
 	$DeathTimer.start()
 	
 func _physics_process(delta):
+	var vectorToLight = light_position - self.position
+	animationTree.set("parameters/Idle-and-Float/blend_position", vectorToLight.normalized())
 	if (BounceTimer.is_stopped() && !is_dying):
 		var new_pos = self.position.move_toward(light_position, delta * speed)
 		if move_at_angle_huh:
@@ -125,8 +124,9 @@ func _on_Mob_body_entered(body):
 		body.playerBounceDetected(self.position)
 		self.enable_bounce_mob(body.position)
 	elif (body.get_name() == "LightBody"):
-		var overlappingArea = body.get_parent()
-		overlappingArea.onLightHit()
+		var overlappingLight = body.get_parent()
+		var overlappingArea = overlappingLight.get_node("LightBounceArea")
+		overlappingLight.onLightHit()
 		var enemiesToBounce = overlappingArea.get_overlapping_areas()
 		var lightPosition = overlappingArea.global_position
 		for enemy in enemiesToBounce:
@@ -134,16 +134,16 @@ func _on_Mob_body_entered(body):
 				enemy.enable_bounce_mob(lightPosition)
 
 func start_jiggle():
-	$AnimatedSprite.set_offset(jiggleOffset)
+	$Sprite.set_offset(jiggleOffset)
 	$JiggleTimer.start()
 
 func stop_jiggle():
-	$AnimatedSprite.set_offset(Vector2(0,0))
+	$Sprite.set_offset(Vector2(0,0))
 	$JiggleTimer.stop()
 
 
 func _on_JiggleTimer_timeout():
-	$AnimatedSprite.set_offset(-$AnimatedSprite.get_offset())
+	$Sprite.set_offset(-$Sprite.get_offset())
 
 
 func _on_DeathTimer_timeout():

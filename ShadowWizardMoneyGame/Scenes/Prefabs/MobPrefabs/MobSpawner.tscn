@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scenes/Prefabs/MobPrefabs/MobSpawner.gd" type="Script" id=1]
-[ext_resource path="res://Scenes/Prefabs/MobPrefabs/Mob.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Prefabs/MobPrefabs/RegularMob.tscn" type="PackedScene" id=2]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -10,7 +10,7 @@ _data = {
 
 [node name="MobSpawner" type="Node"]
 script = ExtResource( 1 )
-mob_scene = ExtResource( 2 )
+mob_scene_regular = ExtResource( 2 )
 
 [node name="MobPath" type="Path2D" parent="."]
 curve = SubResource( 1 )

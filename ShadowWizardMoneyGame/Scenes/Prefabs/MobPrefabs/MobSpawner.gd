@@ -1,6 +1,8 @@
 extends Node
 
-export(PackedScene) var mob_scene
+export(PackedScene) var mob_scene_regular
+export(PackedScene) var mob_scene_angler
+export(PackedScene) var mob_scene_jelly
 
 
 var listOfMobs = []
@@ -18,7 +20,14 @@ func stop_mob_timer():
 	
 func _on_MobTimer_timeout():
 	# Create a new instance of the Mob scene.
-	var mob = mob_scene.instance()
+	var mob = null
+	var rand_num = randi() % 3
+	if (rand_num == 0):
+		mob = mob_scene_regular.instance()
+	elif (rand_num == 1):
+		mob = mob_scene_angler.instance()
+	else:
+		mob = mob_scene_jelly.instance()
 	listOfMobs.append(mob)
 
 	# Get location of light
