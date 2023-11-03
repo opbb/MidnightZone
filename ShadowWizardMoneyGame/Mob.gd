@@ -119,10 +119,11 @@ func _on_consumed():
 func _physics_process(delta):
 	if (BounceTimer.is_stopped()):
 		if is_instance_valid(target_light) and target_light.getLightDead() or !(target_light in alive_lights):
-			target_light = find_min_distance_to_light(alive_lights)	
-			$AnimatedSprite.rotation = direction 
-			light_position = target_light.position
-			print("Moving to new light", light_position, "Current alive lights is", alive_lights)
+			if !(alive_lights.empty()):
+				target_light = find_min_distance_to_light(alive_lights)	
+				$AnimatedSprite.rotation = direction 
+				light_position = target_light.position
+				print("Moving to new light", light_position, "Current alive lights is", alive_lights)
 		var new_pos = self.position.move_toward(light_position, delta * speed)
 		if move_at_angle_huh:
 			var d =  new_pos - self.position
