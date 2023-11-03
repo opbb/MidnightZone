@@ -9,6 +9,7 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var BounceTimer = $BounceTimer
 onready var wasInPlayerShadow = false
+onready var animationTree = $RegularMobAnimationTree
 
 var bounce_speed = 200
 var bounce_direction = Vector2(0,0)
@@ -19,10 +20,6 @@ var move_at_angle_huh = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite.playing = true
-	var mob_types = $AnimatedSprite.frames.get_animation_names()
-	$AnimatedSprite.animation = mob_types[randi() % mob_types.size()]
-	
 	# Allos for values to be easily changed in the GUI
 	$ShadowCheckTimer.wait_time = shadowCheckInterval
 	$ConsumedTimer.wait_time = timeUntilConsumed
@@ -34,14 +31,13 @@ func _on_VisibilityNotifier2D_screen_exited():
 	
 func set_Properties(mob_spawn_location, light, will_rotate):
 	self.move_at_angle_huh = will_rotate
-	light_position = light.position
+	light_position = light.global_position
 	direction = mob_spawn_location.rotation + PI / 2
 	# Set the mob's position to a random location.
 	self.position = mob_spawn_location.position
 
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
-	$AnimatedSprite.rotation = direction 
 
 	
 	
@@ -80,12 +76,12 @@ func _on_ShadowCheckTimer_timeout():
 
 func _on_enter_Player_Shadow():
 	wasInPlayerShadow = true
-	$AnimatedSprite.modulate = Color(255,217,25)
+	$Sprite.modulate = Color(255,217,25)
 	ConsumedTimer.start()
 
 func _on_exit_Player_Shadow():
 	wasInPlayerShadow = false
-	$AnimatedSprite.modulate = Color(0,38,230)
+	$Sprite.modulate = Color(0,38,230)
 	ConsumedTimer.stop()
 
 
@@ -97,9 +93,11 @@ func _on_ConsumedTimer_timeout():
 		
 func _on_consumed():
 	$ShadowCheckTimer.stop()
-	$AnimatedSprite.modulate = Color(0,0,0)
+	$Sprite.modulate = Color(0,0,0)
 	
 func _physics_process(delta):
+	var vectorToLight = light_position - self.position
+	animationTree.set("parameters/Idle-and-Float/blend_position", vectorToLight.normalized())
 	if (BounceTimer.is_stopped()):
 		var new_pos = self.position.move_toward(light_position, delta * speed)
 		if move_at_angle_huh:
