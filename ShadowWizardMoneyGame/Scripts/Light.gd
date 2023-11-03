@@ -10,7 +10,6 @@ func onLightHit():
 	self.curr_health += 1
 	$VisibleLight2D.color = $VisibleLight2D.color.darkened(float(curr_health)/float(max_hits))
 	if curr_health >= max_hits:
-		print("My light died")
 		dead = true
 
 func getLightDead():

@@ -8,7 +8,6 @@ func _ready():
 	
 func _physics_process(delta):
 	for light in get_children():
-		if is_instance_valid(light):
-			if light.getLightDead():
+		if is_instance_valid(light) and light.getLightDead():
 				light.freeMe()
 			
