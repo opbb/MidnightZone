@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="Theme" id=1]
+
+[sub_resource type="DynamicFontData" id=4]
+font_path = "res://art_assets/Xolonium-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 29
+use_mipmaps = true
+font_data = SubResource( 4 )
+
+[node name="PauseMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.254902, 0.243137, 0.243137, 1 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 116.0
+margin_top = 143.0
+margin_right = 236.0
+margin_bottom = 208.0
+
+[node name="ResumeBtn" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_right = 120.0
+margin_bottom = 20.0
+theme = SubResource( 1 )
+text = "Resume"
+
+[node name="ReloadBtn" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 24.0
+margin_right = 120.0
+margin_bottom = 65.0
+custom_fonts/font = SubResource( 3 )
+text = "Reload"
