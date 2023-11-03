@@ -8,15 +8,13 @@
 [ext_resource path="res://art_assets/Tilesets/wood_tileset_final.png" type="Texture" id=6]
 [ext_resource path="res://Scenes/Prefabs/Light.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Levels/LevelManager.gd" type="Script" id=8]
-[ext_resource path="res://art_assets/sprites/Furniture/table_front.PNG" type="Texture" id=9]
-[ext_resource path="res://art_assets/sprites/Furniture/child_bed.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/Prefabs/MobPrefabs/AnglerMob.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Prefabs/MobPrefabs/JellyMob.tscn" type="PackedScene" id=10]
 [ext_resource path="res://art_assets/sprites/Furniture/shelf_side.PNG" type="Texture" id=11]
 [ext_resource path="res://art_assets/sprites/Furniture/shelf_front.PNG" type="Texture" id=12]
 [ext_resource path="res://art_assets/sprites/Furniture/table_side.PNG" type="Texture" id=13]
 [ext_resource path="res://art_assets/sprites/Furniture/toy_chest.png" type="Texture" id=14]
 [ext_resource path="res://art_assets/sprites/Furniture/door.PNG" type="Texture" id=15]
-[ext_resource path="res://Scenes/Prefabs/MobPrefabs/AnglerMob.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Prefabs/MobPrefabs/JellyMob.tscn" type="PackedScene" id=10]
 
 [sub_resource type="TileSet" id=59]
 0/name = "wood_tileset_final.png 0"
@@ -736,7 +734,6 @@ points = PoolVector2Array( 0, 0, 30, 0, 30, 20, 0, 20 )
 } ]
 3/z_index = 0
 4/name = "table_front.PNG 4"
-4/texture = ExtResource( 9 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 0, 0, 26, 22 )
@@ -802,7 +799,6 @@ points = PoolVector2Array( 0, 0, 30, 0, 30, 20, 0, 20 )
 } ]
 6/z_index = 0
 7/name = "child_bed.png 7"
-7/texture = ExtResource( 10 )
 7/tex_offset = Vector2( 0, 0 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 0, 0, 30, 20 )
