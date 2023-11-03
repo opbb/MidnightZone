@@ -7,7 +7,6 @@
 [ext_resource path="res://Scenes/Prefabs/MobPrefabs/RegularMob.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Prefabs/Player.tscn" type="PackedScene" id=6]
 
-
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( -28, -30, -26, -32, 26, -32, 31, -27, 31, -1.50729, 31, 26, 27, 31, -25, 32, -32, 26, -32, -27 )
 

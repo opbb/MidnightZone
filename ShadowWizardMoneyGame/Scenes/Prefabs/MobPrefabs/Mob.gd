@@ -124,7 +124,7 @@ func _physics_process(delta):
 		if is_instance_valid(target_light) and target_light.getLightDead() or !(target_light in alive_lights):
 			if !(alive_lights.empty()):
 				target_light = find_min_distance_to_light(alive_lights)	
-				$AnimatedSprite.rotation = direction 
+				$Sprite.rotation = direction 
 				light_position = target_light.position
 		var new_pos = self.position.move_toward(light_position, delta * speed)
 		if move_at_angle_huh:
