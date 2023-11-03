@@ -146,15 +146,13 @@ func _on_Mob_body_entered(body):
 		body.playerBounceDetected(self.position)
 		self.enable_bounce_mob(body.position)
 	elif (body.get_name() == "LightBody"):
-		var overlappingArea = body.get_parent()
-		overlappingArea.onLightHit()
-		if overlappingArea.getLightDead():
-			alive_lights.erase(overlappingArea)
-			emit_signal("my_light_died", overlappingArea)
-		# this is fucked
 		var overlappingLight = body.get_parent()
-		var overlappingArea = overlappingLight.get_node("LightBounceArea")
 		overlappingLight.onLightHit()
+		if overlappingLight.getLightDead():
+			alive_lights.erase(overlappingLight)
+			emit_signal("my_light_died", overlappingLight)
+
+		var overlappingArea = overlappingLight.get_node("LightBounceArea")
 		var enemiesToBounce = overlappingArea.get_overlapping_areas()
 		var lightPosition = overlappingArea.global_position
 		for enemy in enemiesToBounce:
@@ -163,7 +161,7 @@ func _on_Mob_body_entered(body):
 
 func _on_Mob_my_light_died(my_light):
 	alive_lights.erase(my_light)
-	
+
 func start_jiggle():
 	$Sprite.set_offset(jiggleOffset)
 	$JiggleTimer.start()
