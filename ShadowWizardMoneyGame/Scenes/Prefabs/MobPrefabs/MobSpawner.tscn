@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Prefabs/MobPrefabs/MobSpawner.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Prefabs/MobPrefabs/RegularMob.tscn" type="PackedScene" id=2]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -21, 5, 0, 0, 0, 0, 331, 5, 0, 0, 0, 0, 331, 357, 0, 0, 0, 0, -21, 357, 0, 0, 0, 0, -21, 5 )
+}
+
+[node name="MobSpawner" type="Node"]
+script = ExtResource( 1 )
+mob_scene_regular = ExtResource( 2 )
+
+[node name="MobPath" type="Path2D" parent="."]
+position = Vector2( 21, -5 )
+curve = SubResource( 1 )
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2( -21, 5 )
+
+[node name="MobTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]

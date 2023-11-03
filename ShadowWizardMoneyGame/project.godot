@@ -11,13 +11,15 @@ config_version=4
 [application]
 
 config/name="ShadowWizardMoneyGame"
-run/main_scene="res://TestScene.tscn"
+run/main_scene="res://Scenes/Levels/SmallTestScene.tscn"
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=832
-window/size/height=832
+window/size/width=352
+window/size/height=352
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [global]
 
