@@ -6,7 +6,7 @@
 [ext_resource path="res://art_assets/sprites/Shadow/shadow texture.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 3.0
+radius = 2.0
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 64.0
