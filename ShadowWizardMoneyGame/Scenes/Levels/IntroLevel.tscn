@@ -943,7 +943,6 @@ wait_time = 2.0
 one_shot = true
 
 [node name="UI" parent="." instance=ExtResource( 2 )]
-visible = false
 
 [node name="FloorMap" type="TileMap" parent="."]
 z_index = -1
@@ -992,6 +991,7 @@ next = "LightTestScene"
 [node name="LevelMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 
+[connection signal="game_over" from="LightManager" to="." method="game_over"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
