@@ -1,5 +1,7 @@
 extends Area2D
 
+signal my_light_died(my_light)
+
 export var shadowCheckInterval = .1
 export var timeUntilConsumed = 1
 export var timeForBounce = 1
@@ -19,6 +21,8 @@ var speed = 25
 var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
 var move_at_angle_huh = true
+var target_light: Area2D
+var alive_lights = []
 var is_dying = false
 
 # Called when the node enters the scene tree for the first time.
@@ -32,12 +36,25 @@ func _ready():
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 	
-func set_Properties(mob_spawn_location, light, will_rotate):
-	self.move_at_angle_huh = will_rotate
-	light_position = light.global_position
-	direction = mob_spawn_location.rotation + PI / 2
-	# Set the mob's position to a random location.
+func find_min_distance_to_light(lights): 
+	var closest_num = self.position.distance_to(lights[0].position)
+	var closest_light = lights[0]
+
+	for i in range(1, lights.size()):
+		var delta = self.position.distance_to(lights[i].position)
+		if delta < closest_num:
+			closest_light = lights[i]
+			closest_num = delta
+	return closest_light
+
+	
+func set_Properties(mob_spawn_location, lights, will_rotate):
+	alive_lights = lights
 	self.position = mob_spawn_location.position
+	target_light = find_min_distance_to_light(lights)	
+	self.move_at_angle_huh = will_rotate
+	light_position = target_light.position
+	direction = mob_spawn_location.rotation + PI / 2
 
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
@@ -104,6 +121,11 @@ func _physics_process(delta):
 	var vectorToLight = light_position - self.position
 	animationTree.set("parameters/Idle-and-Float/blend_position", vectorToLight.normalized())
 	if (BounceTimer.is_stopped() && !is_dying):
+		if is_instance_valid(target_light) and target_light.getLightDead() or !(target_light in alive_lights):
+			if !(alive_lights.empty()):
+				target_light = find_min_distance_to_light(alive_lights)	
+				$Sprite.rotation = direction 
+				light_position = target_light.position
 		var new_pos = self.position.move_toward(light_position, delta * speed)
 		if move_at_angle_huh:
 			var d =  new_pos - self.position
@@ -125,13 +147,20 @@ func _on_Mob_body_entered(body):
 		self.enable_bounce_mob(body.position)
 	elif (body.get_name() == "LightBody"):
 		var overlappingLight = body.get_parent()
-		var overlappingArea = overlappingLight.get_node("LightBounceArea")
 		overlappingLight.onLightHit()
+		if overlappingLight.getLightDead():
+			alive_lights.erase(overlappingLight)
+			emit_signal("my_light_died", overlappingLight)
+
+		var overlappingArea = overlappingLight.get_node("LightBounceArea")
 		var enemiesToBounce = overlappingArea.get_overlapping_areas()
 		var lightPosition = overlappingArea.global_position
 		for enemy in enemiesToBounce:
 			if "Mob" in enemy.get_name():
 				enemy.enable_bounce_mob(lightPosition)
+
+func _on_Mob_my_light_died(my_light):
+	alive_lights.erase(my_light)
 
 func start_jiggle():
 	$Sprite.set_offset(jiggleOffset)
