@@ -91,7 +91,7 @@ start_node = "Idle-and-Float"
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
 [node name="RegularMob" type="Area2D"]
-z_index = 2
+z_index = 4
 collision_layer = 257
 collision_mask = 640
 script = ExtResource( 7 )

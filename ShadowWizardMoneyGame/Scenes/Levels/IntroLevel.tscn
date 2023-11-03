@@ -910,7 +910,7 @@ points = PoolVector2Array( 0, 0, 5, 0, 5, 13, 0, 13 )
 } ]
 3/z_index = 0
 
-[node name="TestScene" type="Node"]
+[node name="IntroLevel" type="Node"]
 script = ExtResource( 3 )
 mob_scene = ExtResource( 4 )
 
