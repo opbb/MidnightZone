@@ -21,7 +21,10 @@ func set_is_paused(value):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.is_paused = false
 	visible = false
+	$CenterContainer/VBoxContainer/PausedLabel.text = "Paused"
+	$CenterContainer/VBoxContainer/ResumeBtn.visible = true
 	get_node("Background").modulate.a = 0.7
 
 
@@ -32,3 +35,8 @@ func _on_ResumeBtn_pressed():
 func _on_ReloadBtn_pressed():
 	levelManager.get_tree().paused = false
 	levelManager.restartLevel()
+
+func end_game():
+	$CenterContainer/VBoxContainer/PausedLabel.text = "Game Over"
+	$CenterContainer/VBoxContainer/ResumeBtn.visible = false
+	self.is_paused = true

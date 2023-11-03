@@ -996,7 +996,7 @@ next = "LightTestScene"
 pause_mode = 1
 stream = ExtResource( 16 )
 
-[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="game_over" from="LightManager" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="start_game" from="UI" to="." method="new_game"]
