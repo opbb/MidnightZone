@@ -16,7 +16,8 @@
 [ext_resource path="res://art_assets/sprites/Furniture/toy_chest.png" type="Texture" id=14]
 [ext_resource path="res://art_assets/sprites/Furniture/door.PNG" type="Texture" id=15]
 [ext_resource path="res://art_assets/audio/music/sdow_mx_gameplay_loop1.wav" type="AudioStream" id=16]
-[ext_resource path="res://LightManager.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/Prefabs/LightManager.tscn" type="PackedScene" id=17]
+
 
 [sub_resource type="TileSet" id=59]
 0/name = "wood_tileset_final.png 0"
