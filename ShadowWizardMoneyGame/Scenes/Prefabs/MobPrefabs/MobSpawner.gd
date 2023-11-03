@@ -6,7 +6,7 @@ export(PackedScene) var mob_scene_jelly
 
 
 var listOfMobs = []
-export var max_mob_count = 100
+export var max_mob_count = 35
 var current_mob_count = 0
 
 
