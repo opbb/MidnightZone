@@ -14,8 +14,6 @@ func set_score(initial_score):
 func show_game_over():
 	$PauseMenu.end_game()
 
-
-
 func update_score(score):
 	$ScoreLabel.text = str(score)
 
@@ -32,3 +30,8 @@ func update_score(score):
 func _on_CountDownTimer_timeout():
 	score -= 1 
 	update_score(score)
+	if score == 0:
+		
+		var level_manager = get_parent().get_node("LevelManager")
+		level_manager.toNextLevel()
+

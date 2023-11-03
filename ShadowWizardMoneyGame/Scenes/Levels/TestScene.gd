@@ -1,7 +1,7 @@
 extends Node
 
 export(PackedScene) var mob_scene
-export var score = 60
+export var score = 5
 
 
 func _ready():
@@ -23,7 +23,6 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	$UI.set_score(score)
-	#$UI.show_message("Get Ready to Rumble!!!")
 
 #func _on_ScoreTimer_timeout():
 	#score += 1
