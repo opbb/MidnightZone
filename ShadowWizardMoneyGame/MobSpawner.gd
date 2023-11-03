@@ -33,7 +33,8 @@ func _on_MobTimer_timeout():
 		var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
 		mob_spawn_location.offset = randi()
 		var will_rotate = randi() % 2 == 0
-		
+		#for light in light_manager.lights:
+		#	connect("light_died", mob, "_on_light_died", [light])
 		mob.set_Properties(mob_spawn_location, light_manager.lights, will_rotate)
 
 		# Spawn the mob by adding it to the Main scene.

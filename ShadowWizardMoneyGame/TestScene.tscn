@@ -669,9 +669,16 @@ tile_data = PoolIntArray( -1, 0, 327685, -65536, 0, 327685, -65535, 0, 327685, -
 [node name="Light" parent="LightManager" instance=ExtResource( 7 )]
 position = Vector2( 542, 247 )
 scale = Vector2( 4, 4 )
+max_hits = 2
+curr_health = 0
 
 [node name="Light2" parent="LightManager" instance=ExtResource( 7 )]
 position = Vector2( 168, 600 )
+max_hits = 4
+curr_health = 0
+
+[node name="Light3" parent="LightManager" instance=ExtResource( 7 )]
+position = Vector2( 550, 678 )
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]

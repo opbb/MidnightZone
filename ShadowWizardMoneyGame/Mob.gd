@@ -1,5 +1,7 @@
 extends Area2D
 
+signal my_light_died(my_light)
+
 export var shadowCheckInterval = .1
 export var timeUntilConsumed = 1
 export var timeForBounce = 1
@@ -43,27 +45,9 @@ func find_min_distance_to_light(lights):
 		if delta < closest_num:
 			closest_light = lights[i]
 			closest_num = delta
-	print("my position is ", self.position, "and my closest light point is ", closest_light.position)
-	print("with a diff of ", closest_num)
 	return closest_light
 
-func change_target():
-	pass
 	
-func _on_light_died(light):
-	alive_lights.erase(light)
-	if light == target_light:
-		target_light = find_min_distance_to_light(alive_lights)	
-		$AnimatedSprite.rotation = direction 
-		light_position = target_light.position
-		
-		
-
-func connect_light_signal_to_mob(lights):
-	for light in lights:
-		light.connect("light_died", self, "_on_light_died", light)
-	
-		
 func set_Properties(mob_spawn_location, lights, will_rotate):
 	alive_lights = lights
 	self.position = mob_spawn_location.position
@@ -71,8 +55,6 @@ func set_Properties(mob_spawn_location, lights, will_rotate):
 	self.move_at_angle_huh = will_rotate
 	light_position = target_light.position
 	direction = mob_spawn_location.rotation + PI / 2
-	# Set the mob's position to a random location.
-	
 
 	# Add some randomness to the direction.
 	direction += rand_range(-PI / 4, PI / 4)
@@ -136,6 +118,11 @@ func _on_consumed():
 	
 func _physics_process(delta):
 	if (BounceTimer.is_stopped()):
+		if is_instance_valid(target_light) and target_light.getLightDead() or !(target_light in alive_lights):
+			target_light = find_min_distance_to_light(alive_lights)	
+			$AnimatedSprite.rotation = direction 
+			light_position = target_light.position
+			print("Moving to new light", light_position, "Current alive lights is", alive_lights)
 		var new_pos = self.position.move_toward(light_position, delta * speed)
 		if move_at_angle_huh:
 			var d =  new_pos - self.position
@@ -157,6 +144,10 @@ func _on_Mob_body_entered(body):
 		self.enable_bounce_mob(body.position)
 	elif (body.get_name() == "LightBody"):
 		var overlappingArea = body.get_parent()
+		overlappingArea.onLightHit()
+		if overlappingArea.getLightDead():
+			alive_lights.erase(overlappingArea)
+			emit_signal("my_light_died", overlappingArea)
 		var enemiesToBounce = overlappingArea.get_overlapping_areas()
 		var lightPosition = overlappingArea.global_position
 		for enemy in enemiesToBounce:
@@ -164,3 +155,5 @@ func _on_Mob_body_entered(body):
 				enemy.enable_bounce_mob(lightPosition)
 		
 
+func _on_Mob_my_light_died(my_light):
+	alive_lights.erase(my_light)
