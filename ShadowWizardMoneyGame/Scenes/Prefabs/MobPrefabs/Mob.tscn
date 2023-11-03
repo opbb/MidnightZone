@@ -6,7 +6,7 @@
 [ext_resource path="res://art_assets/sprites/enemyFlyingAlt_2.png" type="Texture" id=4]
 [ext_resource path="res://art_assets/sprites/enemyWalking_2.png" type="Texture" id=5]
 [ext_resource path="res://art_assets/sprites/enemyFlyingAlt_1.png" type="Texture" id=6]
-[ext_resource path="res://Mob.gd" type="Script" id=7]
+[ext_resource path="res://Scenes/Prefabs/MobPrefabs/Mob.gd" type="Script" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
