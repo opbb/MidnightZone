@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 832, 0, 0, 0, 0, 0, 832, 832, 0, 0, 0, 0, 0, 832, 0, 0, 0, 0, 0, 0 )
+"points": PoolVector2Array( 0, 0, 0, 0, -21, 5, 0, 0, 0, 0, 331, 5, 0, 0, 0, 0, 331, 357, 0, 0, 0, 0, -21, 357, 0, 0, 0, 0, -21, 5 )
 }
 
 [node name="MobSpawner" type="Node"]
@@ -13,11 +13,12 @@ script = ExtResource( 1 )
 mob_scene_regular = ExtResource( 2 )
 
 [node name="MobPath" type="Path2D" parent="."]
+position = Vector2( 21, -5 )
 curve = SubResource( 1 )
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+position = Vector2( -21, 5 )
 
 [node name="MobTimer" type="Timer" parent="."]
-wait_time = 0.5
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
