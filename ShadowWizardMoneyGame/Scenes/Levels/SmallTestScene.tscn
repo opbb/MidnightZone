@@ -986,6 +986,7 @@ tile_data = PoolIntArray( 262147, 2, 0, 262148, 2, 0, 327680, 1, 0, 393216, 5, 0
 
 [node name="LightObjectMap" type="TileMap" parent="."]
 tile_set = SubResource( 102 )
+cell_size = Vector2( 32, 32 )
 format = 1
 
 [node name="MobSpawner" parent="." instance=ExtResource( 5 )]
