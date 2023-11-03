@@ -9,6 +9,7 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var BounceTimer = $BounceTimer
 onready var wasInPlayerShadow = false
+const jiggleOffset = Vector2(3, 0)
 
 var bounce_speed = 200
 var bounce_direction = Vector2(0,0)
@@ -128,5 +129,15 @@ func _on_Mob_body_entered(body):
 		for enemy in enemiesToBounce:
 			if "Mob" in enemy.get_name():
 				enemy.enable_bounce_mob(lightPosition)
-		
 
+func startJiggle():
+	$AnimatedSprite.set_offset(jiggleOffset)
+	$JiggleTimer.start()
+
+func stopJiggle():
+	$AnimatedSprite.set_offset(Vector2(0,0))
+	$JiggleTimer.stop()
+
+
+func _on_JiggleTimer_timeout():
+	$AnimatedSprite.set_offset(-$AnimatedSprite.get_offset())
