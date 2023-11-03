@@ -9,7 +9,7 @@ onready var TerrainRaycast2D = $TerrainRayCast2D
 onready var ConsumedTimer = $ConsumedTimer
 onready var BounceTimer = $BounceTimer
 onready var wasInPlayerShadow = false
-onready var animationTree = $RegularMobAnimationTree
+onready var animationTree = $MobAnimationTree
 
 const jiggleOffset = Vector2(3, 0)
 
@@ -124,8 +124,9 @@ func _on_Mob_body_entered(body):
 		body.playerBounceDetected(self.position)
 		self.enable_bounce_mob(body.position)
 	elif (body.get_name() == "LightBody"):
-		var overlappingArea = body.get_parent()
-		overlappingArea.onLightHit()
+		var overlappingLight = body.get_parent()
+		var overlappingArea = overlappingLight.get_node("LightBounceArea")
+		overlappingLight.onLightHit()
 		var enemiesToBounce = overlappingArea.get_overlapping_areas()
 		var lightPosition = overlappingArea.global_position
 		for enemy in enemiesToBounce:

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://art_assets/sprites/Mobs/regular_monster.PNG" type="Texture" id=1]
+[ext_resource path="res://art_assets/sprites/Mobs/angler_monster.PNG" type="Texture" id=1]
 [ext_resource path="res://Scenes/Prefabs/MobPrefabs/Mob.gd" type="Script" id=7]
 
 [sub_resource type="CapsuleShape2D" id=7]
@@ -90,7 +90,7 @@ start_node = "Idle-and-Float"
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=10]
 
-[node name="RegularMob" type="Area2D"]
+[node name="AnglerMob" type="Area2D"]
 collision_layer = 257
 collision_mask = 640
 script = ExtResource( 7 )
@@ -99,6 +99,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -2 )
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 2

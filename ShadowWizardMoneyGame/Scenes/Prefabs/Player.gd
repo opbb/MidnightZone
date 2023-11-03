@@ -55,6 +55,7 @@ func _on_Player_body_entered(_body):
 func updateAnimationState(velocity: Vector2):
 	if (velocity != Vector2.ZERO):
 		stateMachine.travel("Walk")
+		animationTree.set("parameters/Walk/blend_position", velocity)
 	else:
 		stateMachine.travel("Idle")
 
