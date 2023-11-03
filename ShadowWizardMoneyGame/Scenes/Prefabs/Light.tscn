@@ -3,7 +3,7 @@
 [ext_resource path="res://Scenes/Prefabs/Light.gd" type="Script" id=1]
 [ext_resource path="res://art_assets/sprites/Lights/circle-light.png" type="Texture" id=2]
 [ext_resource path="res://Materials/backbuffercopy_mask_mat.tres" type="Material" id=3]
-[ext_resource path="res://art_assets/sprites/Shadow/shadow texture.png" type="Texture" id=4]
+[ext_resource path="res://art_assets/sprites/Shadow/shadowFrames/shadow.tres" type="Texture" id=5]
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 2.0
@@ -51,7 +51,7 @@ copy_mode = 2
 
 [node name="ShadowSprite" type="Sprite" parent="BackBufferCopy"]
 light_mask = 256
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 128, 128 )
 
