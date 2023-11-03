@@ -6,6 +6,7 @@ var score
 
 func _ready():
 	randomize()
+	$LevelMusic.play(0)
 	new_game()
 
 

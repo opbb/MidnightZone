@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=2]
+[gd_scene load_steps=102 format=2]
 
 [ext_resource path="res://Scenes/Prefabs/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Prefabs/UI.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://art_assets/sprites/Furniture/table_side.PNG" type="Texture" id=13]
 [ext_resource path="res://art_assets/sprites/Furniture/toy_chest.png" type="Texture" id=14]
 [ext_resource path="res://art_assets/sprites/Furniture/door.PNG" type="Texture" id=15]
+[ext_resource path="res://art_assets/audio/music/sdow_mx_gameplay_loop1.wav" type="AudioStream" id=16]
 
 [sub_resource type="TileSet" id=59]
 0/name = "wood_tileset_final.png 0"
@@ -885,6 +886,9 @@ scale = Vector2( 2, 2 )
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource( 8 )
 next = "LightTestScene"
+
+[node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 16 )
 
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
