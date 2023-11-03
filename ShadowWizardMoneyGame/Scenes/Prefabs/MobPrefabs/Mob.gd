@@ -17,6 +17,7 @@ var speed = 25
 var light_position = Vector2(0,0)
 var direction = Vector2(0,0)
 var move_at_angle_huh = true
+var is_dying = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -81,12 +82,12 @@ func _on_ShadowCheckTimer_timeout():
 
 func _on_enter_Player_Shadow():
 	wasInPlayerShadow = true
-	$AnimatedSprite.modulate = Color(255,217,25)
+	start_jiggle()
 	ConsumedTimer.start()
 
 func _on_exit_Player_Shadow():
 	wasInPlayerShadow = false
-	$AnimatedSprite.modulate = Color(0,38,230)
+	stop_jiggle()
 	ConsumedTimer.stop()
 
 
@@ -98,10 +99,12 @@ func _on_ConsumedTimer_timeout():
 		
 func _on_consumed():
 	$ShadowCheckTimer.stop()
-	$AnimatedSprite.modulate = Color(0,0,0)
+	$AnimatedSprite.modulate = Color(0.369,0.2,0.416,0.7)
+	is_dying = true
+	$DeathTimer.start()
 	
 func _physics_process(delta):
-	if (BounceTimer.is_stopped()):
+	if (BounceTimer.is_stopped() && !is_dying):
 		var new_pos = self.position.move_toward(light_position, delta * speed)
 		if move_at_angle_huh:
 			var d =  new_pos - self.position
@@ -130,14 +133,18 @@ func _on_Mob_body_entered(body):
 			if "Mob" in enemy.get_name():
 				enemy.enable_bounce_mob(lightPosition)
 
-func startJiggle():
+func start_jiggle():
 	$AnimatedSprite.set_offset(jiggleOffset)
 	$JiggleTimer.start()
 
-func stopJiggle():
+func stop_jiggle():
 	$AnimatedSprite.set_offset(Vector2(0,0))
 	$JiggleTimer.stop()
 
 
 func _on_JiggleTimer_timeout():
 	$AnimatedSprite.set_offset(-$AnimatedSprite.get_offset())
+
+
+func _on_DeathTimer_timeout():
+	queue_free()
