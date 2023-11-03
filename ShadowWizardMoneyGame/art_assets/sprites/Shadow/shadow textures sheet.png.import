@@ -1,6 +1,7 @@
 [remap]
 
 importer="texture"
+type="StreamTexture"
 path="res://.import/shadow textures sheet.png-e97c11cf3be55df6d427baec53fdbd1c.stex"
 metadata={
 "vram_texture": false
