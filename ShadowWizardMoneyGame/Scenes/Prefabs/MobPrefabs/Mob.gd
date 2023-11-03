@@ -96,7 +96,7 @@ func _on_ConsumedTimer_timeout():
 		
 func _on_consumed():
 	$ShadowCheckTimer.stop()
-	$AnimatedSprite.modulate = Color(0.369,0.2,0.416,0.7)
+	$Sprite.modulate = Color(0.369,0.2,0.416,0.7)
 	is_dying = true
 	$DeathTimer.start()
 	
@@ -134,16 +134,16 @@ func _on_Mob_body_entered(body):
 				enemy.enable_bounce_mob(lightPosition)
 
 func start_jiggle():
-	$AnimatedSprite.set_offset(jiggleOffset)
+	$Sprite.set_offset(jiggleOffset)
 	$JiggleTimer.start()
 
 func stop_jiggle():
-	$AnimatedSprite.set_offset(Vector2(0,0))
+	$Sprite.set_offset(Vector2(0,0))
 	$JiggleTimer.stop()
 
 
 func _on_JiggleTimer_timeout():
-	$AnimatedSprite.set_offset(-$AnimatedSprite.get_offset())
+	$Sprite.set_offset(-$Sprite.get_offset())
 
 
 func _on_DeathTimer_timeout():
