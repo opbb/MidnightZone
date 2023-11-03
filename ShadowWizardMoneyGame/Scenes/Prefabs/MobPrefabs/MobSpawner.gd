@@ -37,7 +37,11 @@ func _on_MobTimer_timeout():
 		
 		# Choose a random location on Path2D.
 		var mob_spawn_location = get_node("MobPath/MobSpawnLocation")
-		mob_spawn_location.offset = randi()
+		if (self.get_parent().get_name() == "IntroLevel"):
+			var pathLength = get_node("MobPath").get_curve().get_baked_length()
+			mob_spawn_location.offset = randi() % int(pathLength / 4) + int(pathLength / 8 * 5)
+		else:
+			mob_spawn_location.offset = randi()
 		var will_rotate = randi() % 2 == 0
 		#for light in light_manager.lights:
 		#	connect("light_died", mob, "_on_light_died", [light])
