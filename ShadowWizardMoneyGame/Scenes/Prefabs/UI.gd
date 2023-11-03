@@ -4,9 +4,7 @@ signal start_game
 
 var score = 60
 
-func show_message(text):
-	$GameOverLabel.text = text
-	$GameOverLabel.show()
+func start_timer():
 	$CountDownTimer.start()
 
 func set_score(initial_score):
@@ -14,12 +12,8 @@ func set_score(initial_score):
 	$CountDownTimer.start()
 
 func show_game_over():
-	show_message("Game Over")
-	yield($MessageTimer, "timeout")
-	$MessageLabel.text = "Shadow Wizard Money \nGame"
-	$MessageLabel.show()
-	yield(get_tree().create_timer(1), "timeout")
-	$StartButton.show()
+	$PauseMenu.end_game()
+
 
 
 func update_score(score):

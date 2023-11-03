@@ -997,6 +997,7 @@ script = ExtResource( 8 )
 next = "LightTestScene"
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="."]
+pause_mode = 1
 stream = ExtResource( 16 )
 
 [connection signal="game_over" from="LightManager" to="." method="game_over"]
