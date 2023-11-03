@@ -6,7 +6,7 @@ export(PackedScene) var mob_scene_jelly
 
 
 var listOfMobs = []
-export var max_mob_count = 10
+export var max_mob_count = 100
 var current_mob_count = 0
 
 
@@ -22,7 +22,7 @@ func stop_mob_timer():
 	
 func _on_MobTimer_timeout():
 	# Create a new instance of the Mob scene.
-	if current_mob_count < max_mob_count:
+	if listOfMobs.size() < max_mob_count:
 		var mob = null
 		var rand_num = randi() % 3
 		if (rand_num == 0):

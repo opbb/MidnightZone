@@ -20,5 +20,6 @@ curve = SubResource( 1 )
 position = Vector2( -21, 5 )
 
 [node name="MobTimer" type="Timer" parent="."]
+wait_time = 1.5
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]

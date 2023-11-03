@@ -195,6 +195,7 @@ start_node = "Idle"
 collision_layer = 129
 collision_mask = 257
 script = ExtResource( 2 )
+speed = 90
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

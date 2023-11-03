@@ -986,7 +986,7 @@ mob_scene_jelly = ExtResource( 10 )
 
 [node name="LevelManager" type="Node" parent="."]
 script = ExtResource( 8 )
-next = "LightTestScene"
+next = "WinScreen"
 
 [node name="LevelMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
